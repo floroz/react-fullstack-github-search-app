@@ -44,6 +44,18 @@ export default class User extends Component {
 				) : (
 					<i className="fas fa-times text-danger" />
 				)}
+				<div className="card grid-2">
+					<div className="all-center">
+						<img
+							src={avatar_url}
+							alt=""
+							className="round-img"
+							style={{ width: '150px' }}
+						/>
+						<h1>{name}</h1>
+						<p>{location}</p>
+					</div>
+				</div>
 			</>
 		);
 	}
