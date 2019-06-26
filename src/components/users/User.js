@@ -1,29 +1,50 @@
-import React from 'react';
-import UserItem from './UserItem';
-import Spinner from '../layout/Spinner';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Spinner from '../layout/Spinner';
+import { Link } from 'react-router-dom';
 
-const User = ({ users, loading }) => {
-	return (
-		<div style={userStyle}>
-			{loading ? (
-				<Spinner />
-			) : (
-				users.map(user => <UserItem key={user.id} user={user} />)
-			)}
-		</div>
-	);
-};
+export default class User extends Component {
+	static propTypes = {
+		loading: PropTypes.bool.isRequired,
+		user: PropTypes.object.isRequired,
+		getUser: PropTypes.func.isRequired
+	};
 
-User.propTypes = {
-	users: PropTypes.array.isRequired,
-	loading: PropTypes.bool.isRequired
-};
+	async componentDidMount() {
+		const login = this.props.match.params.login;
+		await this.props.getUser(login);
+	}
+	render() {
+		const {
+			name,
+			avatar_url,
+			location,
+			bio,
+			blog,
+			login,
+			html_url,
+			followers,
+			following,
+			public_repos,
+			public_gists,
+			hireable
+		} = this.props.user;
 
-const userStyle = {
-	display: 'grid',
-	gridTemplateColumns: 'repeat(3, 1fr)',
-	gridGap: '1rem'
-};
+		const { loading } = this.props;
+		if (loading) return <Spinner />;
 
-export default User;
+		return (
+			<>
+				<Link to="/" className="btn btn-light">
+					Back To Search
+				</Link>
+				Hireable:{' '}
+				{hireable ? (
+					<i className="fas fa-check text-success" />
+				) : (
+					<i className="fas fa-times text-danger" />
+				)}
+			</>
+		);
+	}
+}
