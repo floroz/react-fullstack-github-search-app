@@ -3,7 +3,6 @@ import axios from 'axios';
 import GithubContext from './githubContext';
 import GithubReducer from './githubReducer';
 import {
-	SET_ALERT,
 	SEARCH_USERS,
 	CLEAR_USERS,
 	GET_USER,
@@ -18,7 +17,6 @@ const GithubState = props => {
 		user: {},
 		repos: [],
 		loading: false,
-		alert: null
 	};
 
 	const [state, dispatch] = useReducer(GithubReducer, initialState);
@@ -56,12 +54,6 @@ const GithubState = props => {
 		setRepos(res.data);
 	};
 
-	// Show Alert
-	const showAlert = (msg, type) => {
-		setAlert({ msg, type });
-		setTimeout(() => setAlert(null), 3500);
-	};
-
 	// Clear users
 	const clearUsers = () => dispatch({ type: CLEAR_USERS });
 
@@ -73,9 +65,6 @@ const GithubState = props => {
 
 	// Set Repos
 	const setRepos = user => dispatch({ type: GET_REPOS, payload: user });
-
-	// Set Alert
-	const setAlert = alert => dispatch({ type: SET_ALERT, payload: alert });
 
 	return (
 		<GithubContext.Provider
@@ -89,7 +78,6 @@ const GithubState = props => {
 				getUser,
 				getUserRepos,
 				clearUsers,
-				showAlert
 			}}
 		>
 			{props.children}

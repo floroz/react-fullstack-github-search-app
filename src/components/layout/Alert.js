@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import GithubContext from '../context/github/githubContext';
+import AlertContext from '../context/alert/alertContext';
 
 const Alert = props => {
-	const ctx = useContext(GithubContext);
+	const ctx = useContext(AlertContext);
 	const { alert } = ctx;
 	return (
 		alert !== null && (

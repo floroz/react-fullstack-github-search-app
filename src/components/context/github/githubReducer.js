@@ -46,12 +46,6 @@ export default (state, action) => {
 				...state,
 				loading: true
 			};
-		case SET_ALERT:
-			return {
-				...state,
-				alert: payload,
-				loading: false
-			};
 		default:
 			return state;
 	}
